@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% extends "base_generic.html" %}
+
+    {% block content %}
+      <p>Logged out!</p>
+      <a href="{% url 'login'%}">Click here to log in again.</a>
+    {% endblock %}
+  </body>
+</html>

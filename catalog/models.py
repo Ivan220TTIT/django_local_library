@@ -8,25 +8,39 @@ from django.conf import settings
 from datetime import datetime
 from datetime import date
 
+def __str__(self):
+    return self.name_genre
+
+def get_absolute_url(self):
+    """Returns the url to access a particular instance."""
+    return reverse('genre-detail', args=[str(self.id)])
+
 class Genre(models.Model):
-    name_genre = models.CharField(max_length=200, unique=True, help_text="Enter a book genre (e. g. Science Fiction), French Poetry etc.)")
+    """Model representing a book genre."""
+    name = models.CharField(
+        max_length=200,
+        unique=True,
+        help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)"
+    )
 
     def __str__(self):
-            return self.name_genre
+        """String for representing the Model object."""
+        return self.name
 
     def get_absolute_url(self):
-        """Returns the url to access a particular instance."""
+        """Returns the url to access a particular genre instance."""
         return reverse('genre-detail', args=[str(self.id)])
 
-    class Meta:
-        ordering = ['name_genre']
-        constraints = [
-            UniqueConstraint(
-                Lower('name_genre'),
-                name='genre_name_case_insensitive',
-                violation_error_message = "Genre already exists (case-insensitive match)"
-            )
-        ]
+
+class Meta:
+    ordering = ['name_genre']
+    constraints = [
+        UniqueConstraint(
+            Lower('name_genre'),
+            name='genre_name_case_insensitive',
+            violation_error_message = "Genre already exists (case-insensitive match)"
+        )
+    ]
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
@@ -74,7 +88,8 @@ class BookInstance(models.Model):
         ordering = ['due_back']
 
     def __str__(self):
-        return f'{self.id} ({self.book.title})'
+        book_title = self.book.title if self.book else 'No book'
+        return f'{self.id} ({book_title})'
 
 class Author(models.Model):
     first_name = models.CharField(max_length=100)
@@ -92,6 +107,6 @@ class Author(models.Model):
         return f'{self.first_name} {self.last_name}'
 
 # Create your models here.
-def is_overdue(self):
-    """Determines if the book is overdue based on due date and current date."""
-    return bool(self.due_back and date.today() > self.due_back)
+    def is_overdue(self):
+        """Determines if the book is overdue based on due date and current date."""
+        return bool(self.due_back and date.today() > self.due_back)

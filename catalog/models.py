@@ -60,7 +60,7 @@ class Book(models.Model):
         return reverse('book-detail', args=[str(self.id)])
 
     def display_genre(self):
-        return ', '.join([genre.name_genre for genre in self.genre.all()])
+        return ', '.join([genre.name for genre in self.genre.all()])
 
 
 class BookInstance(models.Model):

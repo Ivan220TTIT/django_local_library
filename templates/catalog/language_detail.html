@@ -1,0 +1,25 @@
+
+    {% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Language: {{ language.name }}</h1>
+
+    <hr>
+<ul>
+  <li><a href="{% url 'language-update' language.id %}">Update Language</a></li>
+  <li><a href="{% url 'language-delete' language.id %}">Delete Language</a></li>
+</ul>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Books in {{ language.name }}</h4>
+    <ul>
+      {% for book in language.book_set.all %}
+        <li>
+          <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{ book.author }})
+        </li>
+      {% empty %}
+        <li>There are no books in this language yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import RestrictedError
 
-from .models import Book, Author, BookInstance, Genre
+from .models import Book, Author, BookInstance, Language
 from catalog.forms import RenewBookForm
 
 
@@ -157,3 +157,22 @@ class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return BookInstance.objects.filter(status__exact='o').order_by('due_back')
+
+class LanguageListView(generic.ListView):
+    model = Language
+    paginate_by = 10
+
+class LanguageDetailView(generic.DetailView):
+    model = Language
+
+class LanguageCreate(CreateView):
+    model = Language
+    fields = ['name']
+
+class LanguageUpdate(UpdateView):
+    model = Language
+    fields = ['name']
+
+class LanguageDelete(DeleteView):
+    model = Language
+    success_url = reverse_lazy('languages')

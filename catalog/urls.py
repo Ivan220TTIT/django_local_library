@@ -15,5 +15,9 @@ urlpatterns = [
     path('book/<int:pk>/update/', views.BookUpdate.as_view(), name='book-update'),
     path('book/<int:pk>/delete/', views.BookDelete.as_view(), name='book-delete'),
     path('borrowed/', views.LoanedBooksAllListView.as_view(), name='all-borrowed'),
-
+    path('languages/', views.LanguageListView.as_view(), name='languages'),
+    path('language/<int:pk>', views.LanguageDetailView.as_view(), name='language-detail'),
+    path('language/create/', views.LanguageCreate.as_view(), name='language-create'),
+    path('language/<int:pk>/update/', views.LanguageUpdate.as_view(), name='language-update'),
+    path('language/<int:pk>/delete/', views.LanguageDelete.as_view(), name='language-delete'),
 ]
